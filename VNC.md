@@ -4,9 +4,9 @@ ForeFlight supports the addition of custom charts. This guide will explain at a 
 
 Some background on why this is a bit complex: 
 
-The Tiles are in NZGD2000 New Zealand Transverse Mercator 2000 (EPSG:2193) this isn't going to work for the format we need which is mbtiles. MBtiles needs EPSG:3857 (WGS 84 / Web Mercator projection) not to be confused with regular WGS 84 (EPSG:4326)! To make matters worse the extent of NZGD2000 crosses over the edge of the map to wrap around to the other side of the world. QGIS does NOT like this at all and this causes a number of issues. To get around this I used an intermediate projection WGS 84 / PDC Mercator (EPSG:3832) then trim east from about 179.6 Degrees E, just before it becomes W! There isn't anything much of interest in the VNC out there, just some boundaries which are contained in the ForeFlight data anyway. 
+The Tiles from the AIP shop are in NZGD2000 New Zealand Transverse Mercator 2000 (EPSG:2193) this isn't going to work for the format we need which is mbtiles. MBtiles needs EPSG:3857 (WGS 84 / Web Mercator projection) not to be confused with regular WGS 84 (EPSG:4326)! To make matters worse the extent of NZGD2000 crosses over the edge of the map to wrap around to the other side of the world. QGIS does NOT like this at all and this causes a number of issues. To get around this I used an intermediate projection WGS 84 / PDC Mercator (EPSG:3832) then trim east from about 179.6 Degrees E, just before it becomes W! There isn't anything much of interest in the VNC out there, just some boundaries which are contained in the ForeFlight data anyway. 
 
-Each time you reproject (Warp) you can choose to save a new file, this will be about 10GB each time or you can just use a temp / memory file. 
+Each time you reproject (Warp) you can choose to save a new file, this will be about 10GB each time or you can just use a temp / memory file. To start with you don't need to merge the GeoTiff tiles you can use the layer as loaded. 
 
 The steps:
 
@@ -14,7 +14,7 @@ The steps:
 
 https://shop.aeropath.aero/collections/digital-visual-navigation-charts-2022-2023/products/digital-visual-navigation-charts-1-250-000-scale-chart-areas-effective-1-december-2022?variant=43837479354538
 
-- you must select GeoTiff MAP Tiles! 
+> **_NOTE:_** You must select GeoTiff MAP Tiles! 
 
 2. Download and extract the Tiles.
 3. Open this file in your GIS package. I used QGIS for this process. 
