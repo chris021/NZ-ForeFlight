@@ -2,6 +2,8 @@
 
 ForeFlight supports the addition of custom charts. This guide will explain at a high level the steps that are needed to take the purchased VNC tiles and convert the into something usable in ForeFlight. This process is a little bit complex and does require a computer with a fair amount of processor and RAM. The uncompressed raw VNC is about 10GB and ideally you want to be able to fit that in memory. 
 
+In this repository you will find a few screenshots showing the end result. 
+
 Some background on why this is a bit complex: 
 
 The Tiles from the AIP shop are in NZGD2000 New Zealand Transverse Mercator 2000 (EPSG:2193) this isn't going to work for the format we need which is mbtiles. MBtiles needs EPSG:3857 (WGS 84 / Web Mercator projection) not to be confused with regular WGS 84 (EPSG:4326)! To make matters worse the extent of NZGD2000 crosses over the edge of the map to wrap around to the other side of the world. QGIS does NOT like this at all and this causes a number of issues. To get around this I used an intermediate projection WGS 84 / PDC Mercator (EPSG:3832) then trim east from about 179.6 Degrees E, just before it becomes W! There isn't anything much of interest in the VNC out there, just some boundaries which are contained in the ForeFlight data anyway. 
