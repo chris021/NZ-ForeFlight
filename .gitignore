@@ -1,6 +1,6 @@
 # Don't upload the AIP that would be bad. 
 *.pdf
-
+/aip/
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
