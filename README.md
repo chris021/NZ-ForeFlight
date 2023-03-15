@@ -9,4 +9,4 @@ If you do not have the technical skill or get stuck I am happy to help out in ex
 [eVNC README](VNC.md)
 
 ## NZ AIP Script
-[NZAIP README](NZ-AIP/README.md)
+[NZAIP README](nz-aip/README.md)
