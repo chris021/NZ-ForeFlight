@@ -6,7 +6,8 @@ import shutil
 
 AIPURL = "https://www.aip.net.nz/document-category/Aerodrome-Charts"
 AIPBASEURL = "http://www.aip.net.nz/"
-
+IFR_Keywords = ['VOR', 'RNAV', 'Standard Route Clearances', 'SID', 'ILS', 'Visual Arrivals', 'NDB', 'DME', 'RNP', 'Docking']
+#if not any(word.lower() in asset.name.lower() for word in IFR_Keywords):
 
 cj = http.cookiejar.CookieJar()
 
@@ -43,7 +44,7 @@ def downloadAIP(url, name, icao ,prefix=''):
     response = opener.open(AIPBASEURL + url)
     print(response)
     if response.code == 200:
-        fh = open(os.path.normcase('aip/' + icao + '_' + prefix + '_' + url.rsplit('/', 1)[-1]), "wb")
+        fh = open('aip/' + icao.upper() + '_' + prefix + '_' + name + '.pdf', "wb")
         fh.write(response.read())
         fh.close()
     else:
@@ -57,32 +58,33 @@ for airfield in airfields:
     files = airfield.find_all('a')
     print(Airfield_Name)
 
+
     for file in files:
         File_Name = file.contents[1]
         File_URL = file.get('href')
+        intA = File_Name.find(' — ') + 3
+        File_Name_Short = File_Name[intA:].replace('/', '-').replace('—','-')
 
-        if File_Name.find('VFR') > 0:
-            print('VFR')
-            downloadAIP(File_URL, File_Name, ICAO_code,"VFR")
-        elif File_Name.find('Ground') > 0:   
-            print('Taxi')
-            downloadAIP(File_URL, File_Name, ICAO_code,"TAXI")
-        elif File_Name.find('Arrival') > 0:
-            print('Arrival')
-        elif File_Name.find('Departure') > 0:
-            print('Departure')
-        elif File_Name.find('Aerodrome') > 0:
-            print('Aerodrome')
-            downloadAIP(File_URL, File_Name, ICAO_code,"AIRPORT")
-        elif File_Name.find('Operational') > 0:
-            print('Operational')
-            downloadAIP(File_URL, File_Name, ICAO_code,"AIRPORT")
-        elif File_Name.find('Noise') > 0:
-            print('Noise')            
-        print('------------------------------')
+        if not any(word.lower() in File_Name.lower() for word in IFR_Keywords):
+            print(File_Name)
+            print(File_URL)
+            print(File_Name_Short)
+            print('-----------')
+            #if any(word in File_Name for word in ['Kaitaia','Kerikeri','Whangarei','Auckland','Ardmore']):
+            #    downloadAIP(File_URL, File_Name_Short, ICAO_code,"Airport")
+
+            if File_Name.find('Ground') > 0:
+                downloadAIP(File_URL, File_Name_Short, ICAO_code,"Ground")
+        #    downloadAIP(File_URL, File_Name, ICAO_code,"VFR")
+            elif File_Name.find('Arrival') > 0:   
+                downloadAIP(File_URL, File_Name_Short, ICAO_code,"Arrival&Departure")
+            elif File_Name.find('Departure') > 0:
+                downloadAIP(File_URL, File_Name_Short, ICAO_code,"Arrival&Departure")
+            else:
+                downloadAIP(File_URL, File_Name_Short, ICAO_code,"Airport")
     #except:
         #print(airfield)
-        pass
+        #pass
 
 #print(airfields[2])
 
