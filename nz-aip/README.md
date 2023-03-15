@@ -11,7 +11,11 @@ It is also key that you use this for personal use as per the terms of the AIP. I
 ### What do do
 1. Install Python if you havn't already 
 2. pip install -r requirements.txt
-3. python newaip.py
- Once the script is run a folder called 'AIP' is created. Rename this to 'byop'.
-Place the byop folder in a folder name of your choice for example 'NZAIP 202302' zip this folder and you have a file ready for importing into ForeFlight.
+3. python new-get-aip.py
+4. This should create a folder called 'aip' 
+5. Rename 'aip' to 'byop'.
+6. Place the byop folder in a folder name of your choice for example 'NZAIP 202302' 
+7. zip this folder 
+
+You have a file ready for importing into ForeFlight. Best of luck! 
  
