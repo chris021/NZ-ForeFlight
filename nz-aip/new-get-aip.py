@@ -53,7 +53,11 @@ def downloadAIP(url, name, icao ,prefix=''):
 
 
 for airfield in airfields:
-    ICAO_code = airfield.find('div', class_='col-lg-12')['ref'][7:]
+    try:
+        ICAO_code = airfield.find('div', class_='col-lg-12')['ref'][7:]
+    except:
+        print("Error on: " + str(airfield))
+        continue
     Airfield_Name = airfield.find('template', slot='header').contents[0]
     files = airfield.find_all('a')
     print(Airfield_Name)
